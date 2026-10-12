@@ -3990,7 +3990,9 @@ get defaultOptionYes => isCustomClient ? 'Y' : '';
 get defaultOptionNo => isCustomClient ? 'N' : '';
 get defaultOptionWhitelist => isCustomClient ? ',' : '';
 get defaultOptionAccessMode => isCustomClient ? 'custom' : '';
-get defaultOptionApproveMode => isCustomClient ? 'password-click' : '';
+// NRS: default approve-mode is "password" (see load_custom_client), so "both"
+// must be stored explicitly as 'password-click' instead of '' (empty = default).
+get defaultOptionApproveMode => 'password-click';
 
 bool whitelistNotEmpty() {
   // https://rustdesk.com/docs/en/self-host/client-configuration/advanced-settings/#whitelist

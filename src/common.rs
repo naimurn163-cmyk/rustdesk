@@ -2351,6 +2351,14 @@ pub fn rustdesk_interval(i: Interval) -> ThrottledInterval {
 }
 
 pub fn load_custom_client() {
+    // NRS: default to password-only approval (unattended access with ID + password,
+    // no Accept click). The connection manager window/tray indicator still shows.
+    // Users can change it in Settings > Security; custom.txt can still override.
+    config::DEFAULT_SETTINGS
+        .write()
+        .unwrap()
+        .entry("approve-mode".to_owned())
+        .or_insert("password".to_owned());
     #[cfg(debug_assertions)]
     if let Ok(data) = std::fs::read_to_string("./custom.txt") {
         read_custom_client(data.trim());
